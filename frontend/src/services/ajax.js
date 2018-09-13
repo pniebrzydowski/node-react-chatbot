@@ -13,8 +13,8 @@ const ajax = {
       },
       body: JSON.stringify(data)
     });
-    const json = await response.json();
-    return json;
+    const result = await response.json();
+    return result;
   },
 };
 
