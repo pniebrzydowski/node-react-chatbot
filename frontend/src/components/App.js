@@ -19,7 +19,7 @@ class App extends Component {
 
   async getGreeting() {
     const result = await this.get('greeting');
-    this.addMessage('bot', result);
+    this.addMessages('bot', result.messages);
   }
 
   async get(url) {
@@ -44,7 +44,7 @@ class App extends Component {
       messageText: message,
     };
     const result = await this.post('message', jsonData);
-    this.addMessage('user', result);
+    this.addMessages('user', result.messages);
   }
 
   async sendDate(date) {
@@ -52,16 +52,21 @@ class App extends Component {
       selectedDate: date,
     };
     const result = await this.post('appointment', jsonData);
-    this.addMessage('bot', result);
+    this.addMessages('bot', result.messages);
   }
 
-  addMessage(from, json) {
+  addMessages(from, newMessages) {
     const { messages } = this.state;
-    messages.push({
-      id: messages.length,
-      from: from,
-      text: json.messageText,
-      showDatepicker: json.showDatepicker,
+    let id = messages.length;
+
+    newMessages.forEach(message => {
+      messages.push({
+        id: id,
+        from: from,
+        text: message.messageText,
+        showDatepicker: message.showDatepicker,
+      });
+      id++;
     });
     this.setState({ messages });
   }
