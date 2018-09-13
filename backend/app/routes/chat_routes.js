@@ -14,21 +14,22 @@ module.exports = function(app, db) {
     let messagesToSend = [];
 
     if (!validationService(db).isSlotAvailable(selectedDate)) { // already occupied
-      messagesToSend.push(messageService.getUnavailable());
+      messagesToSend.push(messageService.getRandomMessage('unavailable'));
     }
     else if (validationService(db).isFinalSelection(selectedDate)) { // three selected
       messagesToSend.push(
-        messageService.getFinalReply(),
+        messageService.getRandomMessage('finalReply'),
         messageService.getDateText(db.appointments[0]),
         messageService.getDateText(db.appointments[1]),
         messageService.getDateText(selectedDate),
+        messageService.getRandomMessage('thankYou'),
       );
     }
     else {
       messagesToSend.push(
-        messageService.getDateReply(),
+        messageService.getRandomMessage('dateReply'),
         messageService.getDateText(selectedDate),
-        messageService.getGreeting(),
+        messageService.getRandomMessage('greeting'),
       );
       dbService(db).addAppointment(selectedDate);
     }
@@ -38,7 +39,7 @@ module.exports = function(app, db) {
 
   app.get('/greeting', (req, res, next) => {
     const messagesToSend = [
-      messageService.getGreeting()
+      messageService.getRandomMessage('greeting')
     ];
     res.json({status: 200, messages: messagesToSend});
   });
