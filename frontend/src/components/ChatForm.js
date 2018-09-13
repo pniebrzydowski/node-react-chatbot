@@ -19,6 +19,7 @@ class ChatForm extends Component {
     const { message } = this.state;
     const { onSubmit } = this.props;
     e.preventDefault();
+    this.setState({ message: '' });
     onSubmit(message);
   }
 

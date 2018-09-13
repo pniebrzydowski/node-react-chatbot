@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import './App.css';
 import ChatDisplay from './ChatDisplay';
 import ChatForm from './ChatForm';
@@ -19,13 +20,17 @@ class App extends Component {
 
   async getGreeting() {
     const result = await this.get('greeting');
-    this.addMessages('bot', result.messages);
+    if (result.status === 200) {
+      this.addMessages('bot', result.messages);
+    }
   }
 
   async resetApp() {
     this.setState({ messages: [] });
     const result = await this.get('reset');
-    this.addMessages('bot', result.messages);
+    if (result.status === 200) {
+      this.addMessages('bot', result.messages);
+    }
   }
 
   async get(url) {
@@ -59,7 +64,9 @@ class App extends Component {
       messageText: message,
     };
     const result = await this.post('message', jsonData);
-    this.addMessages('user', result.messages);
+    if (result.status === 200) {
+      this.addMessages('user', [jsonData]);
+    }
   }
 
   async sendDate(date) {
@@ -67,21 +74,22 @@ class App extends Component {
       selectedDate: date,
     };
     const result = await this.post('appointment', jsonData);
-    this.addMessages('bot', result.messages);
+    if (result.status === 200) {
+      this.addMessages('bot', result.messages);
+    }
   }
 
   addMessages(from, newMessages) {
     const { messages } = this.state;
-    let id = messages.length;
+    let timestamp = moment();
 
     newMessages.forEach(message => {
       messages.push({
-        id: id,
+        timestamp: timestamp,
         from: from,
         text: message.messageText,
         showDatepicker: message.showDatepicker,
       });
-      id++;
     });
     this.setState({ messages });
   }

@@ -12,7 +12,7 @@ class ChatDisplay extends Component {
       <ul>
         { messages.map( message => {
           return (
-            <li key={message.id}>
+            <li key={message.timestamp}>
               {message.from}:<br />
               {message.text}<br />
               {message.showDatepicker && <Datepicker onSubmitDate={onSubmitDate} /> }
@@ -26,7 +26,7 @@ class ChatDisplay extends Component {
 
 ChatDisplay.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    timestamp: PropTypes.object.isRequired,
     from: PropTypes.oneOf([
       'bot',
       'user',
