@@ -18,6 +18,7 @@ module.exports = function(app, db) {
   app.get('/greeting', (req, res, next) => {
     const resObject = {
       messageText: 'When would you like to book an appointment?',
+      showDatepicker: true,
     };
     res.send(resObject);
   });
