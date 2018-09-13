@@ -6,11 +6,15 @@ module.exports = {
     };
   },
 
-  getDateReply: (selectedDate) => {
+  getDateReply: () => {
     return {
-      messageText: 
-        'I have made an appointment for ' +
-        selectedDate.format('LL') + ' at ' + selectedDate.format('LT'),
+      messageText: 'I have made an appointment for: ',
+    };
+  },
+
+  getDateText: (date) => {
+    return {
+      messageText: date.format('LL') + ' at ' + date.format('LT'),
     };
   },
 
@@ -18,14 +22,12 @@ module.exports = {
     return {
       messageText: 'Sorry, that time slot is not available, please try another time',
       showDatepicker: true,
-    }
+    };
   },
 
   getFinalReply: () => {
-    return [
-      {
-        messageText: 'I have made the following appointments: ',
-      },
-    ]
+    return {
+      messageText: 'I have made the following appointments: ',
+    };
   },
 }

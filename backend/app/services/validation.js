@@ -10,5 +10,9 @@ module.exports = (db) => {
       });
       return taken === -1;
     },
+
+    isFinalSelection: () => {
+      return db.appointments.length === 2;
+    },
   }
 };

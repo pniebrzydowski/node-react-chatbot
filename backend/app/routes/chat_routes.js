@@ -16,13 +16,19 @@ module.exports = function(app, db) {
     if (!validationService(db).isSlotAvailable(selectedDate)) { // already occupied
       messagesToSend.push(messageService.getUnavailable());
     }
-    else if (false) { // three selected
-      messagesToSend.push(messageService.getUnavailable());
+    else if (validationService(db).isFinalSelection(selectedDate)) { // three selected
+      messagesToSend.push(
+        messageService.getFinalReply(),
+        messageService.getDateText(db.appointments[0]),
+        messageService.getDateText(db.appointments[1]),
+        messageService.getDateText(selectedDate),
+      );
     }
     else {
       messagesToSend.push(
-        messageService.getDateReply(selectedDate),
-        messageService.getGreeting()
+        messageService.getDateReply(),
+        messageService.getDateText(selectedDate),
+        messageService.getGreeting(),
       );
       dbService(db).addAppointment(selectedDate);
     }
