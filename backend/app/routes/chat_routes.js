@@ -1,10 +1,10 @@
 module.exports = function(app, db) {
   app.post('/message', (req, res, next) => {
     console.log(req.body);
-    const resObject = {
+    /* const resObject = {
       messageText: 'Nice Message!',
-    };
-    res.send(resObject);
+    }; */
+    res.sendStatus(200);
   });
 
   app.post('/appointment', (req, res, next) => {

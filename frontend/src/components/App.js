@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ChatDisplay from './ChatDisplay';
+import ChatForm from './ChatForm';
 
 class App extends Component {
   constructor() {
@@ -8,6 +9,7 @@ class App extends Component {
     this.state = {
       messages: [],
     }
+    this.sendMessage = this.sendMessage.bind(this);
   }
 
   componentDidMount() {
@@ -26,10 +28,37 @@ class App extends Component {
     this.setState({ messages });
   }
 
+  sendMessage(message) {
+    const jsonData = {
+      messageText: message,
+    };
+    this.postMessage(jsonData);
+  }
+
+  async postMessage(data) {
+    await fetch('http://localhost:8000/message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(data)
+    });
+    const { messages } = this.state;
+    messages.push({
+      id: messages.length,
+      from: 'user',
+      text: data.messageText,
+    });
+    this.setState({ messages });
+  }
+
   render() {
     const { messages } = this.state;
     return (
-      <ChatDisplay messages={messages} />
+      <main>
+        <ChatDisplay messages={messages} />
+        <ChatForm onSubmit={this.sendMessage} />        
+      </main>
     );
   }
 }
