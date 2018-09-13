@@ -1,6 +1,8 @@
 const moment = require('moment');
 
 const messageService = require('../services/messages');
+const validationService = require('../services/validation');
+const dbService = require('../services/db');
 
 module.exports = function(app, db) {
   app.post('/message', (req, res, next) => {
@@ -9,10 +11,22 @@ module.exports = function(app, db) {
 
   app.post('/appointment', (req, res, next) => {
     const selectedDate = moment(req.body.selectedDate);
-    const messagesToSend = [
-      messageService.getDateReply(selectedDate),
-      messageService.getGreeting(),
-    ];
+    let messagesToSend = [];
+
+    if (!validationService(db).isSlotAvailable(selectedDate)) { // already occupied
+      messagesToSend.push(messageService.getUnavailable());
+    }
+    else if (false) { // three selected
+      messagesToSend.push(messageService.getUnavailable());
+    }
+    else {
+      messagesToSend.push(
+        messageService.getDateReply(selectedDate),
+        messageService.getGreeting()
+      );
+      dbService(db).addAppointment(selectedDate);
+    }
+
     res.json({status: 200, messages: messagesToSend});
   });
 

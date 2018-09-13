@@ -9,7 +9,7 @@ class Datepicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: moment(),
+      selectedDate: moment().add(1, 'days').seconds(0).milliseconds(0),
       visible: true,
     };
     this.onSelectDate = this.onSelectDate.bind(this);
@@ -24,7 +24,7 @@ class Datepicker extends Component {
     const { onSubmitDate } = this.props;
     const { selectedDate } = this.state;
     this.setState({visible: false});
-    setTimeout(() => {onSubmitDate(selectedDate)}, 200);
+    setTimeout(() => {onSubmitDate(selectedDate)}, 100);
   }
 
   render() {
@@ -35,7 +35,8 @@ class Datepicker extends Component {
         <DatePicker
           inline
           showTimeSelect
-          timeFormat="HH:mm"              
+          timeFormat="HH:mm"
+          minDate={moment().add(1, 'days')}
           selected={selectedDate}
           onChange={this.onSelectDate} />
         <br />
