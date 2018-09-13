@@ -40,6 +40,8 @@ class ChatDisplay extends Component {
               {message.showDatepicker && <div>
                 <DatePicker
                   inline
+                  showTimeSelect
+                  timeFormat="HH:mm"              
                   selected={selectedDate}
                   onChange={this.onSelectDate} />
                 <br />

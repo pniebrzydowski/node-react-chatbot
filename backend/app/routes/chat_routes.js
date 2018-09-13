@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 module.exports = function(app, db) {
   app.post('/message', (req, res, next) => {
     console.log(req.body);
@@ -8,9 +10,11 @@ module.exports = function(app, db) {
   });
 
   app.post('/appointment', (req, res, next) => {
-    console.log(req.body);
+    const selectedDate = moment(req.body.selectedDate);
     const resObject = {
-      messageText: 'Thank you for setting an appointment!',
+      messageText: 
+        'I have made an appointment for ' +
+        selectedDate.format('LL') + ' at ' + selectedDate.format('LT'),
     };
     res.send(resObject);
   });

@@ -14,45 +14,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchResults();
+    this.getGreeting();
   }
 
-  async fetchResults() {
-    const response = await fetch('http://localhost:8000/greeting');
-    const json = await response.json();
-    const { messages } = this.state;
-    messages.push({
-      id: messages.length,
-      from: 'bot',
-      text: json.messageText,
-      showDatepicker: json.showDatepicker,
-    });
-
-    this.setState({ messages });
+  async getGreeting() {
+    const result = await this.get('greeting');
+    this.addMessage('bot', result);
   }
 
-  sendMessage(message) {
-    const jsonData = {
-      messageText: message,
-    };
-    const json = this.post(jsonData);
-
-    const { messages } = this.state;
-    messages.push({
-      id: messages.length,
-      from: 'user',
-      text: json.messageText,
-    });
-    this.setState({ messages });
+  async get(url) {
+    const response = await fetch('http://localhost:8000/' + url);
+    const result = await response.json();
+    return result;
   }
-
-  sendDate(date) {
-    const jsonData = {
-      selectedDate: date,
-    };
-    this.post('appointment', jsonData);
-  }
-
   async post(url, data) {
     const response = await fetch('http://localhost:8000/' + url, {
       method: 'POST',
@@ -63,6 +37,33 @@ class App extends Component {
     });
     const json = await response.json();
     return json;
+  }
+
+  async sendMessage(message) {
+    const jsonData = {
+      messageText: message,
+    };
+    const result = await this.post('message', jsonData);
+    this.addMessage('user', result);
+  }
+
+  async sendDate(date) {
+    const jsonData = {
+      selectedDate: date,
+    };
+    const result = await this.post('appointment', jsonData);
+    this.addMessage('bot', result);
+  }
+
+  addMessage(from, json) {
+    const { messages } = this.state;
+    messages.push({
+      id: messages.length,
+      from: from,
+      text: json.messageText,
+      showDatepicker: json.showDatepicker,
+    });
+    this.setState({ messages });
   }
 
   render() {
