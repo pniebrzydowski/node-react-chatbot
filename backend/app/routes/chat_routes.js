@@ -43,4 +43,12 @@ module.exports = function(app, db) {
     ];
     res.json({status: 200, messages: messagesToSend});
   });
+
+  app.get('/reset', (req, res, next) => {
+    dbService(db).clear();
+    const messagesToSend = [
+      messageService.getRandomMessage('greeting')
+    ];
+    res.json({status: 200, messages: messagesToSend});
+  });
 }

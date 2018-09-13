@@ -9,7 +9,7 @@ class App extends Component {
     this.state = {
       messages: [],
     }
-    this.sendMessage = this.sendMessage.bind(this);
+    this.onSubmitMessage = this.onSubmitMessage.bind(this);
     this.sendDate = this.sendDate.bind(this);
   }
 
@@ -19,6 +19,12 @@ class App extends Component {
 
   async getGreeting() {
     const result = await this.get('greeting');
+    this.addMessages('bot', result.messages);
+  }
+
+  async resetApp() {
+    this.setState({ messages: [] });
+    const result = await this.get('reset');
     this.addMessages('bot', result.messages);
   }
 
@@ -37,6 +43,15 @@ class App extends Component {
     });
     const json = await response.json();
     return json;
+  }
+
+  onSubmitMessage(message) {
+    if (message.toLowerCase().replace(/ /g, '').includes('reset')) {
+      this.resetApp();
+      return;
+    }
+
+    this.sendMessage(message);
   }
 
   async sendMessage(message) {
@@ -76,7 +91,7 @@ class App extends Component {
     return (
       <main>
         <ChatDisplay messages={messages} onSubmitDate={this.sendDate} />
-        <ChatForm onSubmit={this.sendMessage} />        
+        <ChatForm onSubmit={this.onSubmitMessage} />        
       </main>
     );
   }
