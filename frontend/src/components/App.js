@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import ajaxService from '../services/ajax';
+import styled from 'styled-components';
 
-import './App.css';
+import ajaxService from '../services/ajax';
 import ChatDisplay from './ChatDisplay';
 import ChatForm from './ChatForm';
+
+const AppContainer = styled.main`
+  box-sizing: border-box;
+  background: linear-gradient(-32deg, #ededed, #dedede, #fff);
+  border: 2px ridge #444;
+  border-radius: 8px;
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
 class App extends Component {
   constructor() {
@@ -82,10 +92,10 @@ class App extends Component {
   render() {
     const { messages } = this.state;
     return (
-      <main>
+      <AppContainer>
         <ChatDisplay messages={messages} onSubmitDate={this.sendDate} />
         <ChatForm onSubmit={this.onSubmitMessage} />        
-      </main>
+      </AppContainer>
     );
   }
 }

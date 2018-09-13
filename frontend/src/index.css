@@ -15,6 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
+button, input, textarea, 
 time, mark, audio, video {
 	margin: 0;
 	padding: 0;
@@ -22,6 +23,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -45,4 +47,11 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+#root {
+	background: linear-gradient(to bottom, #ee5457, #f13134);
+	padding: 25px;
+	display: flex;
+	min-height: 100vh;
 }

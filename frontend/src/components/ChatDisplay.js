@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Datepicker from './Datepicker';
+
+const DisplayContainer = styled.section`
+  padding: 20px;
+  border-bottom: 2px ridge #444;
+  flex: 1 1 auto;
+`;
 
 class ChatDisplay extends Component {
   render() {
@@ -9,17 +16,19 @@ class ChatDisplay extends Component {
     if (messages === null) return null;
 
     return (
-      <ul>
-        { messages.map( message => {
-          return (
-            <li key={message.timestamp}>
-              {message.from}:<br />
-              {message.text}<br />
-              {message.showDatepicker && <Datepicker onSubmitDate={onSubmitDate} /> }
-            </li>
-          );
-        })}
-      </ul>
+      <DisplayContainer>
+        <ul>
+          { messages.map( message => {
+            return (
+              <li key={message.timestamp}>
+                {message.from}:<br />
+                {message.text}<br />
+                {message.showDatepicker && <Datepicker onSubmitDate={onSubmitDate} /> }
+              </li>
+            );
+          })}
+        </ul>
+      </DisplayContainer>
     );
   }
 }

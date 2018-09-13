@@ -1,5 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const FormContainer = styled.section`
+  flex: 0 0 auto;
+  display: flex;
+  font-size: 20px;
+
+  textarea {
+    flex: 1 1 auto;
+    padding: 10px;
+    min-height: 100px;
+  }
+
+  button {
+    padding: 30px;
+    background: linear-gradient(0deg, #444, #343434, #444);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-left: 2px solid #000;
+  }
+`;
 
 class ChatForm extends Component {
   constructor(props) {
@@ -28,8 +50,10 @@ class ChatForm extends Component {
 
     return (
       <form onSubmit={this.submit}>
-        <input type="text" name="messageInput" value={message} onChange={this.change} />
-        <button type="submit">Submit</button>
+        <FormContainer>
+          <textarea type="text" name="messageInput" value={message} onChange={this.change} />
+          <button type="submit">Send</button>
+        </FormContainer>
       </form>
     );
   }
