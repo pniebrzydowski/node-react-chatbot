@@ -1,12 +1,14 @@
+import { serverUrl } from '../config';
+
 const ajax = {
   get: async (url) => {
-    const response = await fetch('http://localhost:8000/' + url);
+    const response = await fetch(serverUrl + url);
     const result = await response.json();
     return result;
   },
 
   post: async (url, data) => {
-    const response = await fetch('http://localhost:8000/' + url, {
+    const response = await fetch(serverUrl + url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
