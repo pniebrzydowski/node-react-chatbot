@@ -1,33 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
 
-import 'react-datepicker/dist/react-datepicker.css';
+import Datepicker from './Datepicker';
 
 class ChatDisplay extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedDate: moment(),
-    };
-    this.onSelectDate = this.onSelectDate.bind(this);
-    this.submitDate = this.submitDate.bind(this);
-  }
-
-  onSelectDate(selectedDate) {
-    this.setState({ selectedDate });
-  }
-
-  submitDate() {
-    const { onSubmitDate } = this.props;
-    const { selectedDate } = this.state;
-    onSubmitDate(selectedDate);
-  }
-
   render() {
-    const { selectedDate } = this.state;
-    const { messages } = this.props;
+    const { messages, onSubmitDate } = this.props;
     if (messages === null) return null;
 
     return (
@@ -37,16 +15,7 @@ class ChatDisplay extends Component {
             <li key={message.id}>
               {message.from}:<br />
               {message.text}<br />
-              {message.showDatepicker && <div>
-                <DatePicker
-                  inline
-                  showTimeSelect
-                  timeFormat="HH:mm"              
-                  selected={selectedDate}
-                  onChange={this.onSelectDate} />
-                <br />
-                <button onClick={this.submitDate}>Select Date</button>
-              </div>}
+              {message.showDatepicker && <Datepicker onSubmitDate={onSubmitDate} /> }
             </li>
           );
         })}
@@ -65,7 +34,6 @@ ChatDisplay.propTypes = {
     text: PropTypes.string.isRequired,
     showDatepicker: PropTypes.bool,
   })),
-  onSubmitDate: PropTypes.func.isRequired,
 }
 
 export default ChatDisplay;
