@@ -31,23 +31,21 @@ class App extends Component {
   }
 
   async getGreeting() {
-    const result = await ajaxService.get('greeting');
-    if (result.status === 200) {
-      this.addMessages('bot', result.messages);
-    }
-  }
-
-  async resetApp() {
-    this.setState({ messages: [] });
-    const result = await ajaxService.get('reset');
+    const result = await ajaxService.get('greet');
     if (result.status === 200) {
       this.addMessages('bot', result.messages);
     }
   }
 
   onSubmitMessage(message) {
-    if (message.toLowerCase().replace(/ /g, '').includes('reset')) {
-      this.resetApp();
+    const adjustedMessage = message.toLowerCase().replace(/ /g, '');
+    if (
+      adjustedMessage.includes('reset') ||
+      adjustedMessage.includes('startover') ||
+      adjustedMessage.includes('restart') ||
+      adjustedMessage.includes('clear')
+    ) {
+      this.getGreeting();
       return;
     }
 
