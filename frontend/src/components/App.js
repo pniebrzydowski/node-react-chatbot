@@ -30,6 +30,26 @@ class App extends Component {
     this.getGreeting();
   }
 
+  async onSubmitMessage(message) {
+    const adjustedMessage = message.toLowerCase().replace(/ /g, '');
+    if (
+      adjustedMessage.includes('reset') ||
+      adjustedMessage.includes('startover') ||
+      adjustedMessage.includes('restart') ||
+      adjustedMessage.includes('clear') ||
+      adjustedMessage.includes('startagain')
+    ) {
+      this.getGreeting();
+    } else if(
+      adjustedMessage.includes('appointments') ||
+      adjustedMessage.includes('current') ||
+      adjustedMessage.includes('booked')
+    ) {
+      await this.sendMessage(message);
+      this.getCurrentAppointments();
+    }
+  }
+
   async getGreeting() {
     this.setState({ messages: [] });
     const result = await ajaxService.get('greet');
@@ -38,19 +58,11 @@ class App extends Component {
     }
   }
 
-  onSubmitMessage(message) {
-    const adjustedMessage = message.toLowerCase().replace(/ /g, '');
-    if (
-      adjustedMessage.includes('reset') ||
-      adjustedMessage.includes('startover') ||
-      adjustedMessage.includes('restart') ||
-      adjustedMessage.includes('clear')
-    ) {
-      this.getGreeting();
-      return;
+  async getCurrentAppointments() {
+    const result = await ajaxService.get('appointments');
+    if (result.status === 200) {
+      this.addMessages('bot', result.messages);
     }
-
-    this.sendMessage(message);
   }
 
   async sendMessage(message) {

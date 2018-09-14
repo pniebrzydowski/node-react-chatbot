@@ -34,10 +34,31 @@ const messageGroups = {
     showDatepicker: true,
   },
 
+  noAppointments: {
+    texts: [
+      'You have no current appointments',
+      'I was not able to find any existing appointments',
+      'You have yet to select any dates',
+      'You have not set any appointments',
+      'I could not find any bookings',
+    ],
+  },
+
+  currentAppointments: {
+    texts: [
+      'Here is a list of your current appointments:',
+      'Here are your currently schedule appointments:',
+      'I have you down for the following times:',
+      'Your current appointments are:',
+      'Currently, you have chosen these time slots:',
+      'Right now you have appointments for the following times:',
+    ],
+  },
+
   finalReply: {
     texts: [
       'I have made the following appointments: ',
-      'I have you down for the following three times ',
+      'I have you down for the following three times: ',
       'Your three appointments are shown below: ',
       'Here are your appointment times: ',
       'Here are your three appointments: ',

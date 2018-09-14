@@ -44,4 +44,24 @@ module.exports = function(app, db) {
     ];
     res.json({status: 200, messages: messagesToSend});
   });
+
+  app.get('/appointments', (req, res, next) => {
+    let messagesToSend = [];
+    if (db.appointments.length === 0) {
+      messagesToSend.push(
+        messageService.getRandomMessage('noAppointments'),
+      );
+    } else {
+      messagesToSend.push(
+        messageService.getRandomMessage('currentAppointments'),
+      );
+      db.appointments.forEach( appointment => {
+        messagesToSend.push(
+          messageService.getDateText(appointment),
+        );
+      });
+    }
+    
+    res.json({status: 200, messages: messagesToSend});
+  });
 }
