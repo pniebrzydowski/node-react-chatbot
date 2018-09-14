@@ -49,6 +49,10 @@ table {
 	border-spacing: 0;
 }
 
+body {
+	font-family: 'Titillium Web', sans-serif;
+}
+
 #root {
 	background: linear-gradient(to bottom, #ee5457, #f13134);
 	padding: 25px;
