@@ -45,7 +45,9 @@ class ChatForm extends Component {
     this.setState({ message });
   }
   submit(e) {
+    // throttling would be good here
     const { message } = this.state;
+    if (message === '') return;
     const { onSubmit } = this.props;
     e.preventDefault();
     this.setState({ message: '' });
