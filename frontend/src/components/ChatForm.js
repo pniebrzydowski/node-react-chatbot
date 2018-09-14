@@ -31,8 +31,15 @@ class ChatForm extends Component {
     };
     this.submit = this.submit.bind(this);
     this.change = this.change.bind(this);
+    this.keyPress = this.keyPress.bind(this);
   }
 
+  keyPress(e) {
+    if(e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      this.submit(e);
+    }
+  }
   change(e) {
     const message = e.target.value;
     this.setState({ message });
@@ -51,7 +58,8 @@ class ChatForm extends Component {
     return (
       <form onSubmit={this.submit}>
         <FormContainer>
-          <textarea type="text" name="messageInput" value={message} onChange={this.change} />
+          <textarea type="text" name="messageInput"
+            value={message} onChange={this.change} onKeyDown={this.keyPress} />
           <button type="submit">Send</button>
         </FormContainer>
       </form>
