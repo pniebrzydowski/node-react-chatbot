@@ -8,7 +8,7 @@ import ChatForm from './ChatForm';
 
 const AppContainer = styled.main`
   box-sizing: border-box;
-  background: linear-gradient(-32deg, #ededed, #dedede, #fff);
+  background: linear-gradient(-32deg, #fafafa, #dedede, #fff);
   border: 2px ridge #444;
   border-radius: 8px;
   flex: 1 1 100%;
