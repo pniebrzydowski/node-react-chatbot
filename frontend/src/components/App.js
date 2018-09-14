@@ -47,6 +47,8 @@ class App extends Component {
     ) {
       await this.sendMessage(message);
       this.getCurrentAppointments();
+    } else {
+      this.sendMessage(message);
     }
   }
 
