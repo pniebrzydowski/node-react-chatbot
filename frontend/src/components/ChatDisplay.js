@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Datepicker from './Datepicker';
+import ChatMessage from './ChatMessage';
 
 const DisplayContainer = styled.section`
   padding: 20px;
@@ -19,13 +19,7 @@ class ChatDisplay extends Component {
       <DisplayContainer>
         <ul>
           { messages.map( message => {
-            return (
-              <li key={message.timestamp}>
-                {message.from}:<br />
-                {message.text}<br />
-                {message.showDatepicker && <Datepicker onSubmitDate={onSubmitDate} /> }
-              </li>
-            );
+            return <ChatMessage key={message.timestamp.format('DD.MM.YYYY hh:mm:ss')} message={message} onSubmitDate={onSubmitDate} />;
           })}
         </ul>
       </DisplayContainer>
@@ -40,9 +34,10 @@ ChatDisplay.propTypes = {
       'bot',
       'user',
     ]).isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.arrayOf(PropTypes.string).isRequired,
     showDatepicker: PropTypes.bool,
   })),
-}
+  onSubmitDate: PropTypes.func.isRequired,
+};
 
 export default ChatDisplay;

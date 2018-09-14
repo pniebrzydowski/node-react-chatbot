@@ -2,8 +2,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import styled from 'styled-components';
 
 import 'react-datepicker/dist/react-datepicker.css';
+
+const DatepickerContainer = styled.div`
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .react-datepicker {
+    flex: 0 0 auto;
+  }
+  
+  .react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range,
+  .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
+    background: linear-gradient(to bottom, #ee5457, #f13134);
+    color: white;
+    font-weight: bold;
+  }
+`;
+
+const SelectButton = styled.button`
+  display: block;
+  padding: 10px;
+  background: linear-gradient(0deg, #444, #343434, #444);
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 5px;
+  cursor: pointer;
+`;
 
 class Datepicker extends Component {
   constructor(props) {
@@ -31,7 +62,7 @@ class Datepicker extends Component {
     const { selectedDate, visible } = this.state;
     if (!visible) return null;
     return (
-      <div>
+      <DatepickerContainer>
         <DatePicker
           inline
           showTimeSelect
@@ -39,9 +70,8 @@ class Datepicker extends Component {
           minDate={moment().add(1, 'days')}
           selected={selectedDate}
           onChange={this.onSelectDate} />
-        <br />
-        <button onClick={this.submitDate}>Select Date</button>
-      </div>
+        <SelectButton onClick={this.submitDate}>Select Date</SelectButton>
+      </DatepickerContainer>
     );
   }
 }

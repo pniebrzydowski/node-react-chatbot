@@ -76,17 +76,21 @@ class App extends Component {
 
   addMessages(from, newMessages) {
     const { messages } = this.state;
+    const content = [];
     let timestamp = moment();
+    let showDatepicker = false;
 
     newMessages.forEach(message => {
-      messages.push({
-        timestamp: timestamp,
-        from: from,
-        text: message.messageText,
-        showDatepicker: message.showDatepicker,
-      });
+      content.push(message.messageText);
+      if (message.showDatepicker) showDatepicker = true;
     });
-    this.setState({ messages });
+    messages.push({
+      timestamp: timestamp,
+      from: from,
+      text: content,
+      showDatepicker: showDatepicker,
+    });
+  this.setState({ messages });
   }
 
   render() {
