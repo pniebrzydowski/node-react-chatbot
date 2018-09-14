@@ -8,10 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const DatepickerContainer = styled.div`
   margin: 10px 0;
-
-  .react-datepicker {
-    display: inline-block;
-  }
+  display: inline-block;
 
   .react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range,
   .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
