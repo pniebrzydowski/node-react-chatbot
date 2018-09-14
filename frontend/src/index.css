@@ -55,7 +55,13 @@ body {
 
 #root {
 	background: linear-gradient(to bottom, #ee5457, #f13134);
-	padding: 25px;
+	padding: 5px;
 	display: flex;
 	min-height: 100vh;
+}
+
+@media (min-width: 450px) {
+	#root {
+		padding: 25px;
+	}
 }

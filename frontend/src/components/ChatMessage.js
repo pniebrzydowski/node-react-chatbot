@@ -10,28 +10,41 @@ const DisplayContainer = styled.li`
   border: 1px solid #ccc;
   min-width: 60%;
   max-width: 85%;
-  padding: 20px 40px 20px 20px;
-  margin-left: ${props => props.message.from === 'bot' ? '20px' : '0'};
-  margin-right: ${props => props.message.from === 'user' ? '20px' : '0'};
   border-radius: 18px;
   float: ${props => props.message.from === 'bot' ? 'left' : 'right'};
   clear: both;
   position: relative;
+  padding: 20px 40px 20px 20px;
   margin-bottom: 10px;
+  margin-left: ${props => props.message.from === 'bot' ? '10px' : '0'};
+  margin-right: ${props => props.message.from === 'user' ? '10px' : '0'};
+
+  @media (min-width: 450px) {
+    margin-left: ${props => props.message.from === 'bot' ? '20px' : '0'};
+    margin-right: ${props => props.message.from === 'user' ? '20px' : '0'};
+  }
 
   &:before {
     content: '';
     position: absolute;
     top: 20px;
-    left: ${props => props.message.from === 'bot' ? '-20px' : 'auto'};
-    right: ${props => props.message.from === 'user' ? '-20px' : 'auto'};
     width: 0; 
     height: 0;
-    border: 20px solid transparent;
+    border: 10px solid transparent;
     border-right-color: #ccc;
     border-left-color: #ccc;
-    border-right-width: ${props => props.message.from === 'bot' ? '20px' : '0'};
-    border-left-width: ${props => props.message.from === 'user' ? '20px' : '0'};
+    left: ${props => props.message.from === 'bot' ? '-10px' : 'auto'};
+    right: ${props => props.message.from === 'user' ? '-10px' : 'auto'};
+    border-right-width: ${props => props.message.from === 'bot' ? '10px' : '0'};
+    border-left-width: ${props => props.message.from === 'user' ? '10px' : '0'};
+
+    @media (min-width: 450px) {
+      border-width: 20px;
+      left: ${props => props.message.from === 'bot' ? '-20px' : 'auto'};
+      right: ${props => props.message.from === 'user' ? '-20px' : 'auto'};
+      border-right-width: ${props => props.message.from === 'bot' ? '20px' : '0'};
+      border-left-width: ${props => props.message.from === 'user' ? '20px' : '0'};
+    }
   }
 
   p {

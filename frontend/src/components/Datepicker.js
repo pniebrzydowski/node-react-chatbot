@@ -16,6 +16,12 @@ const DatepickerContainer = styled.div`
     color: white;
     font-weight: bold;
   }
+
+  @media (max-width: 540px) {
+    .react-datepicker__time-container {
+      width: 100%;
+    }
+  }
 `;
 
 const SelectButton = styled.button`

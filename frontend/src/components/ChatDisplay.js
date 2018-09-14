@@ -5,9 +5,13 @@ import styled from 'styled-components';
 import ChatMessage from './ChatMessage';
 
 const DisplayContainer = styled.section`
-  padding: 20px;
+  padding: 15px 10px;
   border-bottom: 2px ridge #444;
   flex: 1 1 auto;
+
+  @media (min-width: 450px) {
+    padding: 20px;
+  }
 `;
 
 class ChatDisplay extends Component {
