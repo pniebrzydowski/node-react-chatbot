@@ -8,14 +8,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const DatepickerContainer = styled.div`
   margin: 10px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 
   .react-datepicker {
-    flex: 0 0 auto;
+    display: inline-block;
   }
-  
+
   .react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range,
   .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
     background: linear-gradient(to bottom, #ee5457, #f13134);
@@ -26,6 +23,7 @@ const DatepickerContainer = styled.div`
 
 const SelectButton = styled.button`
   display: block;
+  width: 100%;
   padding: 10px;
   background: linear-gradient(0deg, #444, #343434, #444);
   border-radius: 5px;

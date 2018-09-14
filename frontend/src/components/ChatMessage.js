@@ -28,7 +28,6 @@ const DisplayContainer = styled.li`
     border-right: 20px solid #ddd; 
   }
 
-
   p {
     margin: 10px 0;
   }
@@ -46,7 +45,9 @@ class ChatMessage extends Component {
     return (
       <DisplayContainer {...this.props}>
         <Timestamp>{message.timestamp.format('DD.MM.YYYY hh:mm')}</Timestamp>
-        <p>{message.text}</p>
+        {message.text.map( (text, idx) => {
+          return <p key={idx}>{text}</p>;
+        })}
         {message.showDatepicker && <Datepicker onSubmitDate={onSubmitDate} />}
       </DisplayContainer>
     );
@@ -60,7 +61,7 @@ ChatMessage.propTypes = {
       'bot',
       'user',
     ]).isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.arrayOf(PropTypes.string.isRequired),
     showDatepicker: PropTypes.bool,
   }).isRequired,
   onSubmitDate: PropTypes.func.isRequired,
