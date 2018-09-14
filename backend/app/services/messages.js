@@ -73,7 +73,17 @@ const messageGroups = {
       'Thanks for scheduling with me! Start another session by entering "reset"',
       'Thanks for making your appointments with me. You can choose new appointments by sending "reset"',
     ],
-  }
+  },
+
+  unrecognized: {
+    texts: [
+      'Sorry, I do not recognize what you said',
+      'Unfortunately, I do not understand',
+      'What is it that you are looking for?',
+      'I am not sure I understand, perhaps one of these options will help',
+      'I did not recognize that, maybe you can try one of the following options',
+    ],
+  },
 };
 
 module.exports = {
@@ -91,5 +101,13 @@ module.exports = {
     return {
       messageText: date.format('LL') + ' at ' + date.format('LT'),
     };
+  },
+
+  getHelpText: () => {
+    return [
+      { messageText: 'To enter a new appointment, please use the datepicker' },
+      { messageText: 'To see your existing appointments, enter "appointments"' },
+      { messageText: 'To start over, enter "reset"' },
+    ];
   },
 }

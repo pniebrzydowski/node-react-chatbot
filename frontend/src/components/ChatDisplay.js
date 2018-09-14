@@ -23,7 +23,8 @@ class ChatDisplay extends Component {
       <DisplayContainer>
         <ul>
           { messages.map( message => {
-            return <ChatMessage key={message.timestamp.format('DD.MM.YYYY hh:mm:ss')} message={message} onSubmitDate={onSubmitDate} />;
+            const key = message.timestamp.format('DD.MM.YYYY hh:mm:ss') + '-' + message.from;
+            return <ChatMessage key={key} message={message} onSubmitDate={onSubmitDate} />;
           })}
         </ul>
       </DisplayContainer>

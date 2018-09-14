@@ -40,15 +40,32 @@ class App extends Component {
       adjustedMessage.indexOf('startagain') > -1
     ) {
       this.getGreeting();
-    } else if(
+    }
+    else if ( 
       adjustedMessage.indexOf('appointments') > -1 ||
       adjustedMessage.indexOf('current') > -1 ||
       adjustedMessage.indexOf('booked') > -1
     ) {
       await this.sendMessage(message);
       this.getCurrentAppointments();
-    } else {
-      this.sendMessage(message);
+    } else if (
+      adjustedMessage.indexOf('help') > -1 ||
+      adjustedMessage.indexOf('instructions') > -1
+    ) {
+      console.log(message);
+      await this.sendMessage(message);
+      this.getHelp();
+    }
+    else {
+      await this.sendMessage(message);
+      this.unrecognizedMessage();
+    }
+  }
+
+  async getHelp() {
+    const result = await ajaxService.get('help');
+    if (result.status === 200) {
+      this.addMessages('bot', result.messages);
     }
   }
 
@@ -62,6 +79,13 @@ class App extends Component {
 
   async getCurrentAppointments() {
     const result = await ajaxService.get('appointments');
+    if (result.status === 200) {
+      this.addMessages('bot', result.messages);
+    }
+  }
+
+  async unrecognizedMessage() {
+    const result = await ajaxService.get('unrecognized');
     if (result.status === 200) {
       this.addMessages('bot', result.messages);
     }

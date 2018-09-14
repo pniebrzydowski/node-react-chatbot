@@ -64,4 +64,17 @@ module.exports = function(app, db) {
     
     res.json({status: 200, messages: messagesToSend});
   });
+
+  app.get('/unrecognized', (req, res, next) => {
+    let messagesToSend = [
+      messageService.getRandomMessage('unrecognized')
+    ];
+    messagesToSend = messagesToSend.concat(messageService.getHelpText());
+    res.json({status: 200, messages: messagesToSend});
+  });
+
+  app.get('/help', (req, res, next) => {
+    const messagesToSend = messageService.getHelpText();
+    res.json({status: 200, messages: messagesToSend});
+  });
 }
