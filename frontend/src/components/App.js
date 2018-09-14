@@ -31,6 +31,7 @@ class App extends Component {
   }
 
   async getGreeting() {
+    this.setState({ messages: [] });
     const result = await ajaxService.get('greet');
     if (result.status === 200) {
       this.addMessages('bot', result.messages);
@@ -88,7 +89,8 @@ class App extends Component {
       text: content,
       showDatepicker: showDatepicker,
     });
-  this.setState({ messages });
+    this.setState({ messages });
+    window.scrollTo(0,document.body.scrollHeight);
   }
 
   render() {
