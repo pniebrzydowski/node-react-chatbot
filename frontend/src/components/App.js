@@ -33,17 +33,17 @@ class App extends Component {
   async onSubmitMessage(message) {
     const adjustedMessage = message.toLowerCase().replace(/ /g, '');
     if (
-      adjustedMessage.includes('reset') ||
-      adjustedMessage.includes('startover') ||
-      adjustedMessage.includes('restart') ||
-      adjustedMessage.includes('clear') ||
-      adjustedMessage.includes('startagain')
+      adjustedMessage.indexOf('reset') > -1 ||
+      adjustedMessage.indexOf('startover') > -1 ||
+      adjustedMessage.indexOf('restart') > -1 ||
+      adjustedMessage.indexOf('clear') > -1 ||
+      adjustedMessage.indexOf('startagain') > -1
     ) {
       this.getGreeting();
     } else if(
-      adjustedMessage.includes('appointments') ||
-      adjustedMessage.includes('current') ||
-      adjustedMessage.includes('booked')
+      adjustedMessage.indexOf('appointments') > -1 ||
+      adjustedMessage.indexOf('current') > -1 ||
+      adjustedMessage.indexOf('booked') > -1
     ) {
       await this.sendMessage(message);
       this.getCurrentAppointments();
